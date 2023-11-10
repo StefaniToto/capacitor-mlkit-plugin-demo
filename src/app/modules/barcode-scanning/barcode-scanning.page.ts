@@ -16,18 +16,18 @@ import { BarcodeScanningModalComponent } from './barcode-scanning-modal.componen
   styleUrls: ['./barcode-scanning.page.scss'],
 })
 export class BarcodeScanningPage implements OnInit {
-  public readonly barcodeFormat = BarcodeFormat;
-  public readonly lensFacing = LensFacing;
+  // public readonly barcodeFormat = BarcodeFormat;
+  // public readonly lensFacing = LensFacing;
 
-  public formGroup = new UntypedFormGroup({
-    formats: new UntypedFormControl([]),
-    lensFacing: new UntypedFormControl(LensFacing.Back),
-    googleBarcodeScannerModuleInstallState: new UntypedFormControl(0),
-    googleBarcodeScannerModuleInstallProgress: new UntypedFormControl(0),
-  });
-  public barcodes: Barcode[] = [];
-  public isSupported = false;
-  public isPermissionGranted = false;
+  // public formGroup = new UntypedFormGroup({
+  //   formats: new UntypedFormControl([]),
+  //   lensFacing: new UntypedFormControl(LensFacing.Back),
+  //   googleBarcodeScannerModuleInstallState: new UntypedFormControl(0),
+  //   googleBarcodeScannerModuleInstallProgress: new UntypedFormControl(0),
+  // });
+  // public barcodes: Barcode[] = [];
+  // public isSupported = false;
+  // public isPermissionGranted = false;
 
   private readonly GH_URL =
     'https://github.com/capawesome-team/capacitor-barcode-scanning';
@@ -38,12 +38,12 @@ export class BarcodeScanningPage implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    BarcodeScanner.isSupported().then((result) => {
-      this.isSupported = result.supported;
-    });
-    BarcodeScanner.checkPermissions().then((result) => {
-      this.isPermissionGranted = result.camera === 'granted';
-    });
+    // BarcodeScanner.isSupported().then((result) => {
+    //   this.isSupported = result.supported;
+    // });
+    // BarcodeScanner.checkPermissions().then((result) => {
+    //   this.isPermissionGranted = result.camera === 'granted';
+    // });
     BarcodeScanner.removeAllListeners().then(() => {
       BarcodeScanner.addListener(
         'googleBarcodeScannerModuleInstallProgress',
@@ -51,10 +51,10 @@ export class BarcodeScanningPage implements OnInit {
           this.ngZone.run(() => {
             console.log('googleBarcodeScannerModuleInstallProgress', event);
             const { state, progress } = event;
-            this.formGroup.patchValue({
-              googleBarcodeScannerModuleInstallState: state,
-              googleBarcodeScannerModuleInstallProgress: progress,
-            });
+            // this.formGroup.patchValue({
+            //   googleBarcodeScannerModuleInstallState: state,
+            //   googleBarcodeScannerModuleInstallProgress: progress,
+            // });
           });
         }
       );
@@ -62,40 +62,40 @@ export class BarcodeScanningPage implements OnInit {
   }
 
   public async startScan(): Promise<void> {
-    const formats = this.formGroup.get('formats')?.value || [];
-    const lensFacing =
-      this.formGroup.get('lensFacing')?.value || LensFacing.Back;
+    // const formats = this.formGroup.get('formats')?.value || [];
+    // const lensFacing =
+    // this.formGroup.get('lensFacing')?.value || LensFacing.Back;
     const element = await this.dialogService.showModal({
       component: BarcodeScanningModalComponent,
       // Set `visibility` to `visible` to show the modal (see `src/theme/variables.scss`)
       cssClass: 'barcode-scanning-modal',
       showBackdrop: false,
       componentProps: {
-        formats: formats,
-        lensFacing: lensFacing,
+        // formats: formats,
+        // lensFacing: lensFacing,
       },
     });
     element.onDidDismiss().then((result) => {
       const barcode: Barcode | undefined = result.data?.barcode;
       if (barcode) {
-        this.barcodes = [barcode];
+        // this.barcodes = [barcode];
       }
     });
   }
 
-  public async readBarcodeFromImage(): Promise<void> {
-    const { files } = await FilePicker.pickImages({ multiple: false });
-    const path = files[0]?.path;
-    if (!path) {
-      return;
-    }
-    const formats = this.formGroup.get('formats')?.value || [];
-    const { barcodes } = await BarcodeScanner.readBarcodesFromImage({
-      path,
-      formats,
-    });
-    this.barcodes = barcodes;
-  }
+  // public async readBarcodeFromImage(): Promise<void> {
+  //   const { files } = await FilePicker.pickImages({ multiple: false });
+  //   const path = files[0]?.path;
+  //   if (!path) {
+  //     return;
+  //   }
+  //   const formats = this.formGroup.get('formats')?.value || [];
+  //   const { barcodes } = await BarcodeScanner.readBarcodesFromImage({
+  //     path,
+  //     formats,
+  //   });
+  //   this.barcodes = barcodes;
+  // }
 
   public async scan(): Promise<void> {
     const formats = this.formGroup.get('formats')?.value || [];
@@ -105,19 +105,19 @@ export class BarcodeScanningPage implements OnInit {
     this.barcodes = barcodes;
   }
 
-  public async openSettings(): Promise<void> {
-    await BarcodeScanner.openSettings();
-  }
+  // public async openSettings(): Promise<void> {
+  //   await BarcodeScanner.openSettings();
+  // }
 
-  public async installGoogleBarcodeScannerModule(): Promise<void> {
-    await BarcodeScanner.installGoogleBarcodeScannerModule();
-  }
+  // public async installGoogleBarcodeScannerModule(): Promise<void> {
+  //   await BarcodeScanner.installGoogleBarcodeScannerModule();
+  // }
 
-  public async requestPermissions(): Promise<void> {
-    await BarcodeScanner.requestPermissions();
-  }
+  // public async requestPermissions(): Promise<void> {
+  //   await BarcodeScanner.requestPermissions();
+  // }
 
-  public openOnGithub(): void {
-    window.open(this.GH_URL, '_blank');
-  }
+  // public openOnGithub(): void {
+  //   window.open(this.GH_URL, '_blank');
+  // }
 }

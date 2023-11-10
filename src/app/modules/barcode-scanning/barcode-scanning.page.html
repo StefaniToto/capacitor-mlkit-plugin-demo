@@ -16,14 +16,14 @@
       ⚡️ Capacitor plugin for scanning barcodes and QR codes.
     </ion-card-content>
     <ion-row class="ion-no-padding">
-      <ion-col>
+      <!-- <ion-col>
         <ion-button
           fill="clear"
           (click)="openOnGithub()"
           class="ion-float-right"
           >GitHub</ion-button
         >
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </ion-card>
   <ion-card>
@@ -31,8 +31,8 @@
       <ion-card-title>Demo</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="formGroup">
-        <ion-item>
+      <form>
+        <!-- <ion-item>
           <ion-label position="fixed">Formats</ion-label>
           <ion-select
             multiple="true"
@@ -79,8 +79,8 @@
               >UpcE</ion-select-option
             >
           </ion-select>
-        </ion-item>
-        <ion-item>
+        </ion-item> -->
+        <!-- <ion-item>
           <ion-label position="fixed">Lens Facing</ion-label>
           <ion-select formControlName="lensFacing">
             <ion-select-option [value]="lensFacing.Front"
@@ -110,14 +110,9 @@
             type="number"
             [readonly]="true"
           ></ion-input>
-        </ion-item>
-        <ion-button
-          expand="block"
-          (click)="startScan()"
-          [disabled]="!isSupported"
-          >Start Scan</ion-button
-        >
-        <ion-button
+        </ion-item> -->
+        <ion-button expand="block" (click)="startScan()">Start Scan</ion-button>
+        <!-- <ion-button
           expand="block"
           (click)="readBarcodeFromImage()"
           [disabled]="!isSupported"
@@ -143,11 +138,11 @@
           (click)="requestPermissions()"
           [disabled]="isPermissionGranted"
           >Request Permissions</ion-button
-        >
+        > -->
       </form>
     </ion-card-content>
   </ion-card>
-  <ng-container *ngFor="let barcode of barcodes">
+  <!-- <ng-container *ngFor="let barcode of barcodes">
     <ion-card>
       <ion-card-content>
         <ion-item>
@@ -196,5 +191,5 @@
         </ion-item>
       </ion-card-content>
     </ion-card>
-  </ng-container>
+  </ng-container> -->
 </ion-content>
